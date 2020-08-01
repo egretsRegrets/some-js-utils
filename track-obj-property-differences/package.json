@@ -1,0 +1,22 @@
+{
+  "name": "track-obj-property-differences",
+  "version": "1.0.0",
+  "description": "a js utility for tracking and comparing object properties against one another",
+  "main": "track-obj-property-differences.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egretsRegrets/some-js-utils.git"
+  },
+  "author": "egretsRegrets",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/egretsRegrets/some-js-utils/issues"
+  },
+  "homepage": "https://github.com/egretsRegrets/some-js-utils#readme",
+  "devDependencies": {
+    "eslint": "^7.6.0"
+  }
+}

@@ -3,7 +3,7 @@
  * each object passed to the returned function will be tracked and compared with all other objects passed to it
  * @returns {Function} compareAndTrackObj()
  */
-function trackObjPropertyDifferences() {
+export function trackObjPropertyDifferences() {
   const trackedObjects = [];
   /**
    * track param trackedObj by param objId and compare property values with all other tracked objects
@@ -25,7 +25,7 @@ function trackObjPropertyDifferences() {
       objId,
       trackedObj,
     });
-    if ((trackedObjects.length = 1)) {
+    if (trackedObjects.length === 1) {
       return {
         trackedObjects,
         majorityPropVals: Object.entries(trackedObj).reduce(
@@ -45,7 +45,7 @@ function trackObjPropertyDifferences() {
       const propValTotals = trackedObjects.reduce(
         (propValCounts, trackedObjInfo) => {
           Object.entries(trackedObjInfo.trackedObj).forEach(([key, val]) => {
-            if (propValCounts.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(propValCounts, key)) {
               const propVals = propValCounts[key].map(
                 (propInfo) => propInfo.val
               );
