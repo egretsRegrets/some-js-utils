@@ -4,7 +4,7 @@
   "description": "a js utility for tracking and comparing object properties against one another",
   "main": "track-obj-property-differences.js",
   "scripts": {
-    "test": "test"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/egretsRegrets/some-js-utils#readme",
   "devDependencies": {
-    "eslint": "^7.6.0"
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "babel-jest": "^26.2.2",
+    "eslint": "^7.6.0",
+    "jest": "^26.2.2"
   }
 }
