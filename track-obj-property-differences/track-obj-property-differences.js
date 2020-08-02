@@ -50,8 +50,8 @@ export function trackObjPropertyDifferences() {
                 (propInfo) => propInfo.val
               );
               if (propVals.includes(val)) {
-                propValCounts[propVals.indexOf(val)].count += 1;
-                propValCounts[propVals.indexOf(val)].objectsWithVal.push(
+                propValCounts[key][propVals.indexOf(val)].count += 1;
+                propValCounts[key][propVals.indexOf(val)].objectsWithVal.push(
                   trackedObjInfo.objId
                 );
               } else {
@@ -91,8 +91,14 @@ export function trackObjPropertyDifferences() {
         propCountInfo
           .filter((info) => info !== mostCommonValInfo)
           .forEach((valInfo) => {
-            valInfo.objectsWithPropVal.forEach((objId) => {
-              variance[objId][prop] = valInfo;
+            valInfo.objectsWithVal.forEach((objId) => {
+              if (Object.prototype.hasOwnProperty.call(variance, objId)) {
+                variance[objId][prop] = valInfo;
+              } else {
+                variance[objId] = {
+                  [prop]: valInfo,
+                };
+              }
             });
           });
       });

@@ -51,6 +51,6 @@ beforeEach(() => {
 });
 
 test('Output comparison should be created by trackObjects() calls', () => {
-  console.log('latest: ', latest);
+  console.log('latest: ', JSON.stringify(latest, null, 2));
   expect(latest).toBeDefined();
 });
