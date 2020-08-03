@@ -22,5 +22,8 @@
     "babel-jest": "^26.2.2",
     "eslint": "^7.6.0",
     "jest": "^26.2.2"
+  },
+  "dependencies": {
+    "deep-equal": "^2.0.1"
   }
 }

@@ -1,3 +1,5 @@
+import deepEqual from 'deep-equal';
+
 /**
  * create/assign returned fn to track objects and compare by property values
  * each object passed to the returned function will be tracked and compared with all other objects passed to it
@@ -20,6 +22,7 @@ export function trackObjPropertyDifferences() {
    * @return {Object} variance[objId][variantPropName].count {Number} the number of tracked objects that have this prop/val pair
    * @return {Object} variance[objId][variantPropName].objectsWithPropVal {Array<String>} a list of all the object ids of tracked objects with this property/value pair
    */
+
   return function compareAndTrackObj({ objId, trackedObj }) {
     trackedObjects.push({
       objId,
@@ -49,11 +52,14 @@ export function trackObjPropertyDifferences() {
               const propVals = propValCounts[key].map(
                 (propInfo) => propInfo.val
               );
-              if (propVals.includes(val)) {
-                propValCounts[key][propVals.indexOf(val)].count += 1;
-                propValCounts[key][propVals.indexOf(val)].objectsWithVal.push(
-                  trackedObjInfo.objId
-                );
+              const indexOfNewValInPropValInfo = propVals.findIndex(
+                (existingVal) => deepEqual(existingVal, val)
+              );
+              if (indexOfNewValInPropValInfo !== -1) {
+                propValCounts[key][indexOfNewValInPropValInfo].count += 1;
+                propValCounts[key][
+                  indexOfNewValInPropValInfo
+                ].objectsWithVal.push(trackedObjInfo.objId);
               } else {
                 propValCounts[key].push({
                   val,
@@ -83,13 +89,17 @@ export function trackObjPropertyDifferences() {
         const mostCommonValInfo = propCountInfo.sort(
           (valInfoA, valInfoB) => valInfoB.count - valInfoA.count
         )[0];
-        majorityPropVals = {
-          ...majorityPropVals,
-          [prop]: mostCommonValInfo,
-        };
+        if (mostCommonValInfo.count !== 1) {
+          majorityPropVals = {
+            ...majorityPropVals,
+            [prop]: mostCommonValInfo,
+          };
+        }
 
         propCountInfo
-          .filter((info) => info !== mostCommonValInfo)
+          .filter((info) =>
+            mostCommonValInfo.count !== 1 ? info !== mostCommonValInfo : true
+          )
           .forEach((valInfo) => {
             valInfo.objectsWithVal.forEach((objId) => {
               if (Object.prototype.hasOwnProperty.call(variance, objId)) {
